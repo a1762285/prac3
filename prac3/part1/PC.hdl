@@ -17,4 +17,17 @@ CHIP PC {
 
     PARTS:
     // Put your code here:
+
+    Register(in=curValue, load=load, out=nextValue);
+
+ 
+    Add16(a=nextValue, b=incValue, out=addResult);
+
+ 
+    Mux16(a=addResult, b=in, sel=reset, out=selResult);
+
+  
+    Register(in=selResult, load=true, out=out, out=curValue);
+
+    Const16(value=1, out=incValue);
 }
