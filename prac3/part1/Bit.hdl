@@ -17,5 +17,5 @@ CHIP Bit {
     // Put your code here:
     Nand(a=load, b=load, out=nload);
     Mux(a=out, b=in, sel=nload, out=nextOut);
-    DFF(in=nextOut, out=out, out=nextOut, load=load);
+    DFF(in=nextOut, out=out, load=load);
 }
