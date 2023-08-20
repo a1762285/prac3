@@ -16,20 +16,14 @@ CHIP RAM8 {
 
     PARTS:
     // Put your code here:
-    Register(in=in, load=load & address[0], out=out0);
-    Register(in=in, load=load & address[1], out=out1);
-    Register(in=in, load=load & address[2], out=out2);
-    Register(in=in, load=load & (Nand(a=address[2], b=address[1], out=na01) & address[0]), out=out3);
-    Register(in=in, load=load & address[0] & Nand(a=address[2], b=address[1], out=na02), out=out4);
-    Register(in=in, load=load & address[1] & Nand(a=address[2], b=address[0], out=na12), out=out5);
-    Register(in=in, load=load & (Nand(a=address[2], b=address[1], out=na34) & address[0]), out=out6);
-    Register(in=in, load=load & (Nand(a=address[2], b=address[1], out=na56) & address[0]), out=out7);
-    
-    Mux16(a=out0, b=out1, sel=address[2], out=mux01);
-    Mux16(a=out2, b=out3, sel=address[2], out=mux23);
-    Mux16(a=out4, b=out5, sel=address[2], out=mux45);
-    Mux16(a=out6, b=out7, sel=address[2], out=mux67);
-    Mux16(a=mux01, b=mux23, sel=address[1], out=mux0123);
-    Mux16(a=mux45, b=mux67, sel=address[1], out=mux4567);
-    Mux16(a=mux0123, b=mux4567, sel=address[0], out=out);
+   	DMux8Way(in=load, sel=address, a=loada, b=loadb, c=loadc, d=loadd, e=loade, f=loadf, g=loadg, h=loadh);
+    Register(in=in, load=loada, out=outa);
+    Register(in=in, load=loadb, out=outb);
+    Register(in=in, load=loadc, out=outc);
+    Register(in=in, load=loadd, out=outd);
+    Register(in=in, load=loade, out=oute);
+    Register(in=in, load=loadf, out=outf);
+    Register(in=in, load=loadg, out=outg);
+    Register(in=in, load=loadh, out=outh);
+	Mux8Way16(a=outa, b=outb, c=outc, d=outd, e=oute, f=outf, g=outg, h=outh, sel=address, out=out);	
 }
