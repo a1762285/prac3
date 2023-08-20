@@ -15,7 +15,7 @@ CHIP Bit {
 
     PARTS:
     // Put your code here:
-    Nand(a=load, b=load, out=nload);
-    Mux(a=out, b=in, sel=nload, out=nextOut);
-    DFF(in=nextOut, out=out, load=load);
+    Mux(a=dffout, b=in, sel=load, out=muxout);
+	DFF(in=muxout, out=dffout);
+	Or(a=dffout, b=dffout, out=out);
 }
